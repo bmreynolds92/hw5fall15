@@ -24,7 +24,10 @@ Background: movies have been added to RottenPotatoes
 Scenario: restrict to movies with 'PG' or 'R' ratings
   When I have opted to see movies rated: "PG, R"
   Then I should see only movies rated: "PG, R"
+  #unchecked steps added below
+  When I have unchecked the following ratings: "G, PG-13, NC-17"
+  Then I should not see movies rated: "G, PG-13, NC-17"
 
 Scenario: all ratings selected
-  When I have opted to see movies rated: "G, PG, PG-13, R"
-  Then I should see all of the movies 
+  When I have opted to see all movies rated: "G, PG, PG-13, R, NC-17"
+  Then I should see all of the movies rated: "G, PG, PG-13, R, NC-17"

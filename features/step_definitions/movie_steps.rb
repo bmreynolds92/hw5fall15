@@ -46,29 +46,67 @@ Given /^I am on the RottenPotatoes home page$/ do
 # Add a declarative step here for populating the DB with movies.
 
 Given /the following movies have been added to RottenPotatoes:/ do |movies_table|
-  pending  # Remove this statement when you finish implementing the test step
+
   movies_table.hashes.each do |movie|
     # Each returned movie will be a hash representing one row of the movies_table
     # The keys will be the table headers and the values will be the row contents.
     # Entries can be directly to the database with ActiveRecord methods
     # Add the necessary Active Record call(s) to populate the database.
+    Movie.create(movie)
   end
 end
 
-When /^I have opted to see movies rated: "(.*?)"$/ do |arg1|
-  # HINT: use String#split to split up the rating_list, then
-  # iterate over the ratings and check/uncheck the ratings
-  # using the appropriate Capybara command(s)
-  pending  #remove this statement after implementing the test step
+When /^I have opted to see movies rated: "(.*?)"$/ do |rating_list| #this stuff corresponds with "restrict to movies with 'PG' or 'R' ratings" 
+  
+    rating_list.split(/,\s*/).each do |rating|
+      rating = "ratings_#{rating}"
+      check(rating)
+      
+    end
 end
 
-Then /^I should see only movies rated: "(.*?)"$/ do |arg1|
-  pending  #remove this statement after implementing the test step
+When /^I have unchecked the following ratings: "(.*?)"$/ do |rating_list| #this stuff corresponds with "restrict to movies with 'PG' or 'R' ratings" 
+    rating_list.split(/,\s*/).each do |rating|
+      rating = "ratings_#{rating}"
+      uncheck(rating)
+    end
 end
 
-Then /^I should see all of the movies$/ do
-  pending  #remove this statement after implementing the test step
+When /^I have opted to see all movies rated: "(.*?)"$/ do |rating_list| #this stuff corresponds with all ratings "G, PG, PG-13, R, NC-17"
+    rating_list.split(/,\s*/).each do |rating|
+      rating = "ratings_#{rating}"
+      check(rating)
+      
+    end
+end
+Then /^I should see only movies rated: "(.*?)"$/ do |rating_list| #this stuff corresponds with "restrict to movies with 'PG' or 'R' ratings" 
+    rating_list.split(/,\s*/).each do |rating|
+        if page.respond_to? :should
+            page.should have_content(rating)
+        else
+             assert page.has_content?(rating)
+         end
+    end
 end
 
+Then /^I should see all of the movies rated: "(.*?)"$/ do |rating_list|#this stuff corresponds with the "all ratings selected" 
+    rating_list.split(/,\s*/).each do |rating|
+        if page.respond_to? :should
+            page.should have_content(rating)
+        else
+             assert page.has_content?(rating)
+         end
+    end
+end
+
+Then /^I should not see movies rated: "(.*?)"$/ do |rating_list|
+      rating_list.split(/,\s*/).each do |rating|
+        if page.respond_to? :should
+            page.should have_content(rating)
+        else
+             assert page.has_content?(rating)
+         end
+    end
+end
 
 
