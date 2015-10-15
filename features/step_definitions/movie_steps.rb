@@ -89,16 +89,6 @@ Then /^I should see only movies rated: "(.*?)"$/ do |rating_list| #this stuff co
     end
 end
 
-Then /^I should see all of the movies rated: "(.*?)"$/ do |rating_list|#this stuff corresponds with the "all ratings selected" 
-    rating_list.split(/,\s*/).each do |rating|
-        if page.respond_to? :should
-            page.should have_content(rating)
-        else
-             assert page.has_content?(rating)
-         end
-    end
-end
-
 Then /^I should not see movies rated: "(.*?)"$/ do |rating_list|
       rating_list.split(/,\s*/).each do |rating|
         if page.respond_to? :should
@@ -109,4 +99,29 @@ Then /^I should not see movies rated: "(.*?)"$/ do |rating_list|
     end
 end
 
+When /^I unchecked all the following ratings:"(.*?)"$/ do |rating_list|
+  rating_list.split(/,\s*/).each do |rating|
+      rating = "ratings_#{rating}"
+      uncheck(rating)
+  end
+end
+
+Then /^I should see "(.*?)" of the movies$/ do |arg1|
+  rows = page.all("table#movies tr").count
+  case arg1
+  when "none"
+    rows.should == 11
+  when "all"
+    rows.should == 11
+  end
+end
+
+
+#part 3 steps for sort_movie_list.feature
+When(/^I examine "(.*?)"$/) do |arg1|
+end
+
+Then(/^I should see "(.*?)" before "(.*?)"$/) do |arg1, arg2|
+  page.body.should match /#{arg1}.*#{arg2}/m
+end
 
