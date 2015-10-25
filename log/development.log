@@ -1450,3 +1450,32 @@ Processing by MoviesController#index as HTML
   [1m[35mMovie Load (0.2ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."rating" IN ('G', 'NC-17', 'PG', 'PG-13', 'R')
   Rendered movies/index.html.haml within layouts/application (17.9ms)
 Completed 200 OK in 210ms (Views: 202.3ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/" for 129.255.227.190 at 2015-10-25 06:40:52 +0000
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendered /usr/local/rvm/gems/ruby-2.2.2/gems/railties-4.2.1/lib/rails/templates/rails/welcome/index.html.erb (1.9ms)
+Completed 200 OK in 19ms (Views: 8.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/movies" for 129.255.227.190 at 2015-10-25 06:40:55 +0000
+Processing by MoviesController#index as HTML
+  [1m[35mMovie Load (0.3ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."rating" IN ('G', 'PG', 'PG-13', 'NC-17', 'R')
+  Rendered movies/index.html.haml within layouts/application (16.0ms)
+Completed 200 OK in 282ms (Views: 272.2ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/movies/16" for 129.255.227.190 at 2015-10-25 06:41:00 +0000
+Processing by MoviesController#show as HTML
+  Parameters: {"id"=>"16"}
+  [1m[36mMovie Load (0.3ms)[0m  [1mSELECT  "movies".* FROM "movies" WHERE "movies"."id" = ? LIMIT 1[0m  [["id", 16]]
+  Rendered movies/show.html.haml within layouts/application (3.7ms)
+Completed 200 OK in 50ms (Views: 42.2ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/movies" for 129.255.227.190 at 2015-10-25 06:41:03 +0000
+Processing by MoviesController#index as HTML
+  [1m[35mMovie Load (0.4ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."rating" IN ('G', 'PG', 'PG-13', 'NC-17', 'R')
+  Rendered movies/index.html.haml within layouts/application (11.2ms)
+Completed 200 OK in 41ms (Views: 39.5ms | ActiveRecord: 0.4ms)
