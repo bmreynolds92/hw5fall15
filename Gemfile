@@ -45,6 +45,9 @@ group :development, :test do
   gem 'autotest-rails'
   gem 'ZenTest'
   gem "autotest"
+  gem "rspec-its"
+  gem "factory_girl_rails"
+  gem "themoviedb"
 end
 
 group :test do

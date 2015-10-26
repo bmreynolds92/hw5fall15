@@ -10,17 +10,17 @@ describe MoviesController, type: :controller do
       expect(Movie).to receive(:find_in_tmdb).with('hardware').and_return(@fake_results)
       post :search_tmdb, {:search_terms => 'hardware'}
     end
-  describe "after valid search" do
-    before :each do
-      allow(Movie).to receive(:find_in_tmdb).and_return(@fake_results)
-      post :search_tmdb, {:search_terms => 'hardware'}
-    end
-    it 'should select the Search Results template for rendering' do
-      expect(response).to render_template('search_tmdb')
-    end
-    it 'should make the TMDb search results available to that template' do
-      expect(assigns(:movies)).to eq(@fake_results)
-    end
+    describe "after valid search" do
+      before :each do
+       allow(Movie).to receive(:find_in_tmdb).and_return(@fake_results)
+       post :search_tmdb, {:search_terms => 'hardware'}
+      end
+      it 'should select the Search Results template for rendering' do
+        expect(response).to render_template('search_tmdb')
+      end
+      it 'should make the TMDb search results available to that template' do
+        expect(assigns(:movies)).to eq(@fake_results)
+      end
     end
   end
 end

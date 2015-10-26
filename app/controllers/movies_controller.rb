@@ -65,6 +65,20 @@ class MoviesController < ApplicationController
   
   def search_tmdb
     @movies = Movie.find_in_tmdb(params[:search_terms])
+    
+    #The search_tmdb method will require two instance variables for communication w/
+    #the view: one to pass the movie info (array of movie hashes) to the view and one
+    #to pass the search term to the view 
+    
+    session[:warning] = "#{params[:search_terms]} was not found in TMDb"
+    
+    #The search_tmdb method should check for invalid search terms--i.e. nil or all-blank--
+    #and redirect the user as described earlier.
+    
+    if @movies.empty?
+      redirect_to movies_path
+      return
+    end
   end
 
 end
